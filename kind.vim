@@ -11,7 +11,7 @@ if exists("b:current_syntax")
 endif
 
 " Language keywords
-syntax keyword kindKeywords λ e let open case with for in as switch type if then else def while
+syntax keyword kindKeywords λ e let open case with for in as switch type if then else def while when pass
 
 " Comments
 syntax region kindCommentLine start="//" end="$"
