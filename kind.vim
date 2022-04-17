@@ -16,7 +16,7 @@ syntax keyword kindKeywords λ e let open case with for in as switch type if the
 " Comments
 syntax region kindCommentLine start="//" end="$"
 
-" Buraco and reflection
+" Type hole and reflection
 syntax region kindString start='?' end='$'
 syntax keyword kindString refl
 
@@ -31,10 +31,10 @@ syntax region kindString start='"' end='"'
 syntax region kindString start='\'' end='\''
 
 " Function
-syntax region rFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *(" matchgroup=Function end=")" transparent 
+syntax region kindFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *(" matchgroup=Function end=")" transparent 
 
 " Specials
-syntax keyword rSpecial nil cons zero succ pred true false
+syntax keyword kindSpecial nil cons zero succ pred true false
 
 " Type
 syntax match kindTypeNames "\<[A-Z][a-zA-Z0-9_']*\>" 
@@ -45,5 +45,5 @@ highlight default link kindCommentLine Comment
 highlight default link kindTypeNames Type
 highlight default link kindNumber Number
 highlight default link kindString String
-highlight default link rFunction Function
-highlight default link rSpecial Boolean
+highlight default link kindFunction Function
+highlight default link kindSpecial Boolean
