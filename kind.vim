@@ -11,14 +11,13 @@ if exists("b:current_syntax")
 endif
 
 " Language keywords
-syntax keyword kindKeywords λ e let open case with for in as switch type if then else def while when pass
+syntax keyword kindKeywords λ e let rewrite open case with for in as switch type if then else def while when pass watch refl 
 
 " Comments
 syntax region kindCommentLine start="//" end="$"
 
-" Type hole and reflection
+" Buraco
 syntax region kindString start='?' end='$'
-syntax keyword kindString refl
 
 "Number literals
 syntax match kindNumber "\<[0-9]\+\>\|\<[0-9_]\+\>\|\<0[xX][0-9a-fA-F_]\+\>\|\<0[oO][0-7_]\+\>\|\<0[bB][10_]\+\>"
@@ -31,10 +30,12 @@ syntax region kindString start='"' end='"'
 syntax region kindString start='\'' end='\''
 
 " Function
-syntax region kindFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *(" matchgroup=Function end=")" transparent 
+syntax region rFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *(" matchgroup=Function end=")" transparent 
+
+syntax region rFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *<" matchgroup=Function end=")" transparent 
 
 " Specials
-syntax keyword kindSpecial nil cons zero succ pred true false
+syntax keyword rSpecial nil cons zero succ pred true false apply comm
 
 " Type
 syntax match kindTypeNames "\<[A-Z][a-zA-Z0-9_']*\>" 
@@ -45,5 +46,5 @@ highlight default link kindCommentLine Comment
 highlight default link kindTypeNames Type
 highlight default link kindNumber Number
 highlight default link kindString String
-highlight default link kindFunction Function
-highlight default link kindSpecial Boolean
+highlight default link rFunction Function
+highlight default link rSpecial Boolean
