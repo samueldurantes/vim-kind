@@ -1,50 +1,65 @@
 " Vim syntax file
 " Language: Kind 
 
+" This is a fork from https://github.com/samueldurantes/vim-kind
+
 " Usage Instructions
 " Put this file in .vim/syntax/kind.vim
 " and add in your .vimrc file the next line:
 " autocmd BufRead,BufNewFile *.kind set filetype=kind
 
-if exists("b:current_syntax")  
-  finish
+if exists("b:current_syntax")
+    finish
 endif
 
-" Language keywords
-syntax keyword kindKeywords λ e let rewrite open case with for in as switch type if then else def while when pass watch refl 
+syntax keyword kindKeyword let def type 
+highlight link kindKeyword Keyword
 
-" Comments
-syntax region kindCommentLine start="//" end="$"
+syntax keyword kindStatement do case as
+highlight link kindStatement Statement
 
-" Buraco
-syntax region kindString start='?' end='$'
+syntax keyword kindSpecial nil cons zero succ pred apply comm
+highlight default link kindSpecial Boolean
 
-"Number literals
-syntax match kindNumber "\<[0-9]\+\>\|\<[0-9_]\+\>\|\<0[xX][0-9a-fA-F_]\+\>\|\<0[oO][0-7_]\+\>\|\<0[bB][10_]\+\>"
+syntax match kindType "\<[A-Z][a-zA-Z0-9_]*\>\(\.\)\@!"
+highlight link kindType Type
 
-" Strings literals
-syntax region kindString start=/\v"/ skip=/\v\\./ end=/\v"/
+syntax keyword kindBooleanTrue    true
+syntax keyword kindBooleanFalse   false
 
-" Strings
-syntax region kindString start='"' end='"'
-syntax region kindString start='\'' end='\''
+highlight link kindBooleanTrue Boolean
+highlight link kindBooleanFalse Boolean
 
-" Function
-syntax region rFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *(" matchgroup=Function end=")" transparent 
+syntax match   kindOperator "[-!|&+<>=%/*~^:]"
+highlight link kindOperator Operator
 
-syntax region rFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *<" matchgroup=Function end=")" transparent 
+syntax region kindFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *(" matchgroup=Function end=")" transparent
+syntax region kindFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *<" matchgroup=Function end=")" transparent
+highlight link kindFunction Function
 
-" Specials
-syntax keyword rSpecial nil cons zero succ pred true false apply comm
+syntax keyword kindRefl refl
+syntax keyword kindMirror mirror
+highlight link kindRefl Macro
+highlight link kindMirror Macro
 
-" Type
-syntax match kindTypeNames "\<[A-Z][a-zA-Z0-9_']*\>" 
+syntax region kindString start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@Spell
+syntax region kindString start=+'+ end=+'+
+" to fix
+"syntax region KindString start=+?+ end=/$/ contains=@Spell extend keepend
+highlight link kindString String
 
-" Set highlights
-highlight default link kindKeywords Keyword
-highlight default link kindCommentLine Comment
-highlight default link kindTypeNames Type
-highlight default link kindNumber Number
-highlight default link kindString String
-highlight default link rFunction Function
-highlight default link rSpecial Boolean
+syn match kindNumber "\<[0-9]\+[bsul]\?\>"
+highlight link kindNumber Number
+
+syn keyword kindConditional if then else
+highlight link kindConditional Conditional
+
+syn keyword kindTactic rewrite in with
+highlight link kindTactic Macro
+
+syntax keyword kindCommentTodo    contained TODO FIXME XXX TBD NOTE
+syntax region  kindComment        start=+//+ end=/$/ contains=kindCommentTodo,@Spell extend keepend
+highlight link kindComment Comment
+
+let b:current_syntax = "kind"
+
