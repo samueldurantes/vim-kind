@@ -22,6 +22,7 @@ syntax keyword kindSpecial nil cons zero succ pred apply comm
 highlight default link kindSpecial Boolean
 
 syntax match kindType "\<[A-Z][a-zA-Z0-9_]*\>\(\.\)\@!"
+syntax keyword kindType _
 highlight link kindType Type
 
 syntax keyword kindBooleanTrue    true
