@@ -9,6 +9,11 @@ Syntax file highlight for Kind
 Plug 'samueldurantes/vim-kind'
 ```
 
+Add this to your `.vimrc` or `init.vim`
+
+```vim
+au BufRead,BufNewFile *.kind set filetype=kind
+```
 ### Manually
 
 #### On VIM
