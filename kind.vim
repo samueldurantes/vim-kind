@@ -9,58 +9,53 @@
 " autocmd BufRead,BufNewFile *.kind set filetype=kind
 
 if exists("b:current_syntax")
-    finish
+  finish
 endif
 
-syntax keyword kindKeyword let def type 
-highlight link kindKeyword Keyword
+" Language keywords
+syntax keyword kindKeywords λ e let open case with for in as switch type if then else def while when pass do rewrite default
 
-syntax keyword kindStatement do case as
-highlight link kindStatement Statement
+"Number literals
+syntax match kindNumber "\<[0-9]\+\>\|\<[0-9_]\+\>\|\<0[xX][0-9a-fA-F_]\+\>\|\<0[oO][0-7_]\+\>\|\<0[bB][10_]\+\>"
 
-syntax keyword kindSpecial nil cons zero succ pred apply comm
-highlight default link kindSpecial Boolean
+" Strings literals
+syntax region kindString start=/\v"/ skip=/\v\\./ end=/\v"/
 
-syntax match kindType "\<[A-Z][a-zA-Z0-9_]*\>\(\.\)\@!"
-syntax keyword kindType _
-highlight link kindType Type
+" Strings
+syntax region kindString start='"' end='"'
+syntax region kindString start='\'' end='\''
 
-syntax keyword kindBooleanTrue    true
-syntax keyword kindBooleanFalse   false
-
-highlight link kindBooleanTrue Boolean
-highlight link kindBooleanFalse Boolean
-
-syntax match   kindOperator "[-!|&+<>=%/*~^:]"
-highlight link kindOperator Operator
-
+" Function
 syntax region kindFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *(" matchgroup=Function end=")" transparent
-syntax region kindFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *<" matchgroup=Function end=")" transparent
-highlight link kindFunction Function
+syntax region kindFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *<" matchgroup=Function end=">" transparent
+syntax region kindFunction matchgroup=Function start="\(\(\a\|[.][._\a]\)[._\w]*\)\+\ *!" matchgroup=Function end=")" transparent
 
-syntax keyword kindRefl refl
-syntax keyword kindMirror mirror
-highlight link kindRefl Macro
-highlight link kindMirror Macro
+" Specials
+syntax keyword kindSpecial nil cons zero succ pred true false apply comm head tail value
 
-syntax region kindString start=+"+ skip=+\\\\\|\\"+ end=+"+ contains=@Spell
-syntax region kindString start=+'+ end=+'+
-" to fix
-"syntax region KindString start=+?+ end=/$/ contains=@Spell extend keepend
-highlight link kindString String
+" Type
+syntax match kindTypeNames "\<[A-Z][a-zA-Z0-9_']*\>"
 
-syn match kindNumber "\<[0-9]\+[bsul]\?\>"
-highlight link kindNumber Number
+" Operator
+syntax match kindOperator "[-!|&+<>=%/*~^:]"
 
-syn keyword kindConditional if then else
-highlight link kindConditional Conditional
+" Comments
+syntax region kindCommentLine start="//" end="$"
 
-syn keyword kindTactic rewrite in with
-highlight link kindTactic Macro
+" Hole and reflection
+syntax keyword kindString refl
+syntax region kindString start="?" end="$"
 
 syntax keyword kindCommentTodo    contained TODO FIXME XXX TBD NOTE
-syntax region  kindComment        start=+//+ end=/$/ contains=kindCommentTodo,@Spell extend keepend
 highlight link kindComment Comment
 
-let b:current_syntax = "kind"
+" Set highlights
+highlight default link kindKeywords Keyword
+highlight default link kindCommentLine Comment
+highlight default link kindTypeNames Type
+highlight default link kindNumber Number
+highlight default link kindFunction Function
+highlight default link kindSpecial Boolean
+highlight default link kindOperator Operator
+highlight default link kindString String
 
