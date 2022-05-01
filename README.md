@@ -18,4 +18,4 @@ au BufRead,BufNewFile *.kind set filetype=kind
 ```
 
 ## Preview
-![code](./vim-kind.png)
+![code](./preview.png)
