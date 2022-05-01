@@ -1,8 +1,6 @@
 " Vim syntax file
 " Language: Kind 
 
-" This is a fork from https://github.com/samueldurantes/vim-kind
-
 " Usage Instructions
 " Put this file in .vim/syntax/kind.vim
 " and add in your .vimrc file the next line:
@@ -46,7 +44,7 @@ syntax region kindCommentLine start="//" end="$"
 syntax keyword kindString refl
 syntax region kindString start="?" end="$"
 
-syntax keyword kindCommentTodo    contained TODO FIXME XXX TBD NOTE
+syntax keyword kindCommentTodo contained TODO FIXME XXX TBD NOTE
 highlight link kindComment Comment
 
 " Set highlights
@@ -58,4 +56,3 @@ highlight default link kindFunction Function
 highlight default link kindSpecial Boolean
 highlight default link kindOperator Operator
 highlight default link kindString String
-
